@@ -31,6 +31,7 @@ public class MyUtil {
 	}
 
 	static String current = null;
+	
 	public static Mat getImagefromfile() throws IOException{
 	try {
 
