@@ -33,64 +33,11 @@ public class Main {
 		Mat src = new Mat();
 		MyUtil myUtil=new MyUtil();
 		src=myUtil.getImagefromfile();
+		
 		try {
 
-			
-			//-----------------  Resize Images to prepare  for OCR --------
-
-			//Mat img =Imgcodecs.imread("E:\\Java\\My Programs\\MyKad\\res\\1r.jpg",Imgcodecs.CV_LOAD_IMAGE_COLOR);			
-			Mat resImage = new Mat();
-			Size sz = new Size(2*src.width(),2*src.height());
-			Imgproc.resize( src, resImage, sz );
-			 
-
-			//------------------    Denoising   ------------------------
-
-
-			//Mat resImage =Imgcodecs.imread("res/1r.jpg",Imgcodecs.CV_LOAD_IMAGE_COLOR);	
-			Mat denoiseImage = new Mat(resImage.rows(),resImage.cols(),resImage.type());
-			denoiseImage = resImage;
-			Photo.fastNlMeansDenoisingColored(resImage,denoiseImage, 3, 3, 5, 21);
-			//Imgcodecs.imwrite("res/1D.jpg",denoiseImage);    // Writing the image
-/*
-			// -----------------    Delation     -----------------------
-
-			Mat delationImage = new Mat();     							 					// Creating an empty matrix to store the result
-			Mat kernel1 = Imgproc.getStructuringElement
-					(Imgproc.MORPH_RECT, new  Size((2*2) + 1, (2*2)+1));				    // Preparing the kernel matrix object		
-			Imgproc.dilate(denoiseImage, delationImage, kernel1);        					// Applying dilate on the Image
-			Imgcodecs.imwrite("res/1D.jpg",delationImage);    // Writing the image
-*/
-			//------------------     Crop        ----------------------
-
-			Rect rectCrop = new Rect(1, 220, 375, 50);
-			Mat cropImage = new Mat (denoiseImage,rectCrop);    		
-
-			//------------------    Sharpening   -----------------------
-
-			// Creating an empty matrix to store the result
-			Mat sharpImage = new Mat();
-
-			// Applying GaussianBlur on the Image
-			Imgproc.GaussianBlur(cropImage, sharpImage, new Size(35, 35), 0);
-			Core.addWeighted(cropImage, 1.5, sharpImage, -.5, 0, sharpImage);	
-
-			//Imgcodecs.imwrite("res/1s.jpg",cropImage);    // Writing the image
-
-
-			//------------------- convert to gray -------------------
-
-			Mat grayImage = new Mat();
-			grayImage = sharpImage;
-			Imgproc.cvtColor(sharpImage, grayImage, Imgproc.COLOR_RGB2GRAY);
-			
-
-			//--------------- Convert Gray Image to Binary Image ------------
-
-			Mat dst = new Mat();
-			Imgproc.threshold(grayImage, dst, 120, 255, Imgproc.THRESH_BINARY);
-			Imgcodecs.imwrite("data/b.jpg",dst);   // Writing the image
-
+			ImageProcessing imageProcess=new ImageProcessing();
+			imageProcess.imProcess(src);
 			//----------------  Apply OCR  to the cropped image  --------------
 			
 			ITesseract instance = new Tesseract();  // JNA Interface Mapping
