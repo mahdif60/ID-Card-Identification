@@ -1,6 +1,5 @@
 package my.rafftech;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +31,8 @@ public class Main {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);	  //Loading the core library 
 
 		Mat src = new Mat();
-		src=MyUtil.getImagefromfile();
+		MyUtil myUtil=new MyUtil();
+		src=myUtil.getImagefromfile();
 		try {
 
 			
@@ -122,7 +122,7 @@ public class Main {
 		      Imgcodecs.imwrite("res/fd.jpg", src);
 		      File f1=new File("res/fd.jpg");
 		      BufferedImage image2 = ImageIO.read(f1); 
-		      MyUtil.displayImage(image2);
+		      myUtil.displayImage(image2);
 		      
 		      
 			System.out.println("****** Identification Result *******");

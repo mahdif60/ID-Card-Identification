@@ -18,7 +18,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 public class MyUtil {
-	public static void displayImage(Image img){   
+	public void displayImage(Image img){   
 		ImageIcon icon = new ImageIcon(img);
 		JFrame frame = new JFrame();
 		frame.setLayout(new FlowLayout());        
@@ -30,9 +30,9 @@ public class MyUtil {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	static String current = null;
+	String current = null;
 	
-	public static Mat getImagefromfile() throws IOException{
+	public Mat getImagefromfile() throws IOException{
 	try {
 
 		current = new java.io.File( "." ).getCanonicalPath();
